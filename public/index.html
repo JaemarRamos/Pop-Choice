@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
+  <title>Pop Choice</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ══════════════════════════════════════ WELCOME -->
+  <div id="screen-welcome" class="screen active">
+    <div class="welcome-content">
+      <div class="logo">
+        <span class="logo-icon">🎬</span>
+        <h1>Pop Choice</h1>
+        <p class="tagline">Your perfect movie, every night.</p>
+      </div>
+
+      <div class="people-section">
+        <p class="people-title">How many people are watching?</p>
+        <div class="people-stepper">
+          <button class="stepper-btn" id="stepper-minus" onclick="changePeople(-1)" disabled>−</button>
+          <div class="stepper-display">
+            <span class="stepper-count" id="people-count">1</span>
+            <span class="stepper-label" id="people-label">person</span>
+          </div>
+          <button class="stepper-btn" id="stepper-plus" onclick="changePeople(1)">+</button>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="goToGroup()">Let's Find a Movie →</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ GROUP CONTEXT -->
+  <div id="screen-group" class="screen">
+    <div class="question-header">
+      <button class="btn-back" onclick="showScreen('screen-welcome')">←</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="group-progress-fill" style="width:0%"></div>
+      </div>
+    </div>
+    <div class="question-body">
+      <p class="q-label">Optional · Set the scene</p>
+      <h2 class="q-title" id="group-title">What kind of movie night is this?</h2>
+      <textarea
+        id="group-description"
+        class="text-input"
+        placeholder="e.g. Date night looking for something emotional, or friends who love sci-fi..."
+        maxlength="300"
+        rows="4"
+      ></textarea>
+      <div class="char-count"><span id="group-char-count">0</span>/300</div>
+    </div>
+    <div class="question-footer">
+      <button class="btn-primary" onclick="goToFirstPerson()">Next →</button>
+      <button class="btn-skip" onclick="skipGroup()">Skip this step</button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ PER-PERSON (reused for each person) -->
+  <div id="screen-person" class="screen">
+    <div class="question-header">
+      <button class="btn-back" onclick="personBack()">←</button>
+      <div class="progress-bar-container">
+        <div class="progress-bar-fill" id="person-progress-fill"></div>
+      </div>
+      <span class="progress-text" id="person-progress-text"></span>
+    </div>
+
+    <div class="question-body">
+      <div class="person-badge" id="person-badge">Your Picks</div>
+
+      <div class="sub-question">
+        <h3 class="q-subtitle">How are you feeling?</h3>
+        <div class="pill-grid" id="person-mood-grid">
+          <button class="pill" data-value="Happy and upbeat"      onclick="selectPill(this,'person-mood-grid')">😊 Happy</button>
+          <button class="pill" data-value="Sad or melancholic"    onclick="selectPill(this,'person-mood-grid')">😢 Sad</button>
+          <button class="pill" data-value="Excited and energetic" onclick="selectPill(this,'person-mood-grid')">🔥 Excited</button>
+          <button class="pill" data-value="Calm and relaxed"      onclick="selectPill(this,'person-mood-grid')">😌 Calm</button>
+          <button class="pill" data-value="Stressed or anxious"   onclick="selectPill(this,'person-mood-grid')">😤 Stressed</button>
+          <button class="pill" data-value="Dreamy and nostalgic"  onclick="selectPill(this,'person-mood-grid')">🌙 Dreamy</button>
+        </div>
+      </div>
+
+      <div class="sub-question">
+        <h3 class="q-subtitle">What are you craving?</h3>
+        <div class="pill-grid" id="person-exp-grid">
+          <button class="pill" data-value="Mind-bending and thought-provoking"     onclick="selectPill(this,'person-exp-grid')">🤯 Mind-bending</button>
+          <button class="pill" data-value="Heartwarming and feel-good"             onclick="selectPill(this,'person-exp-grid')">❤️ Heartwarming</button>
+          <button class="pill" data-value="Thrilling and suspenseful edge-of-seat" onclick="selectPill(this,'person-exp-grid')">😱 Thrilling</button>
+          <button class="pill" data-value="Hilarious and fun laughter comedy"      onclick="selectPill(this,'person-exp-grid')">😂 Hilarious</button>
+          <button class="pill" data-value="Inspiring and motivating uplifting"     onclick="selectPill(this,'person-exp-grid')">💪 Inspiring</button>
+          <button class="pill" data-value="Nostalgic romantic dreamy emotional"    onclick="selectPill(this,'person-exp-grid')">🎞️ Nostalgic</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="question-footer">
+      <button class="btn-primary" onclick="savePersonAndNext()">
+        <span id="person-btn-label">Find My Movie ✨</span>
+      </button>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ LOADING -->
+  <div id="screen-loading" class="screen">
+    <div class="loading-content">
+      <div class="film-reel">🎬</div>
+      <h2>Finding your perfect movie…</h2>
+      <p>Searching through the universe of cinema for you.</p>
+    </div>
+  </div>
+
+  <!-- ══════════════════════════════════════ RESULT -->
+  <div id="screen-result" class="screen">
+    <div class="result-header">
+      <p class="result-label">Tonight's Perfect Movie</p>
+    </div>
+
+    <div class="poster-wrap">
+      <img id="result-poster" class="movie-poster" src="" alt="Movie poster" />
+      <div id="result-poster-fallback" class="movie-icon-big">🎬</div>
+    </div>
+
+    <div class="result-card">
+      <h2 id="result-title" class="movie-title"></h2>
+      <p id="result-meta" class="movie-meta"></p>
+      <div id="result-genres" class="genre-tags"></div>
+
+      <div class="divider"></div>
+
+      <div class="ai-explanation">
+        <p class="ai-label">✨ Why it's perfect for you tonight</p>
+        <p id="result-explanation" class="explanation-text"></p>
+      </div>
+
+      <div class="divider"></div>
+
+      <p id="result-why" class="why-watch"></p>
+
+      <button class="btn-try-another" id="btn-try-another" onclick="tryAnother()">
+        Try Another Recommendation →
+      </button>
+    </div>
+
+    <button class="btn-secondary" onclick="restart()">Start Over</button>
+  </div>
+
+  <!-- ══════════════════════════════════════ ERROR -->
+  <div id="screen-error" class="screen">
+    <div class="error-content">
+      <div class="error-icon">😔</div>
+      <h2>Something went wrong</h2>
+      <p id="error-message">Please try again.</p>
+      <button class="btn-primary" onclick="showScreen('screen-welcome')">Try Again</button>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>

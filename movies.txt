@@ -1,0 +1,250 @@
+TITLE: The Shawshank Redemption
+YEAR: 1994
+DIRECTOR: Frank Darabont
+GENRES: Drama
+RUNTIME: 2h 22m
+MOOD_TAGS: hopeful, inspiring, emotional, uplifting, profound
+WHY_WATCH: The most life-affirming film ever made.
+DESCRIPTION: A wrongfully imprisoned man forges an unbreakable friendship and finds hope in the darkest place imaginable. A timeless story about perseverance, human connection, and the indomitable spirit.
+EMBED_TEXT: The Shawshank Redemption 1994. Drama. Hopeful inspiring emotional uplifting profound friendship perseverance hope redemption injustice human spirit prison. A story about finding hope when everything is taken from you. Perfect for feeling inspired, needing emotional uplift, or craving a deeply human story about resilience.
+---
+TITLE: The Dark Knight
+YEAR: 2008
+DIRECTOR: Christopher Nolan
+GENRES: Action, Crime, Thriller
+RUNTIME: 2h 32m
+MOOD_TAGS: intense, thrilling, dark, complex, adrenaline
+WHY_WATCH: The greatest superhero film ever made — and much more.
+DESCRIPTION: Batman faces the Joker, a chaotic criminal mastermind who pushes Gotham to the brink. A gripping moral thriller disguised as a superhero film with career-defining performances.
+EMBED_TEXT: The Dark Knight 2008. Action Crime Thriller. Intense thrilling dark complex adrenaline superhero batman joker chaos moral dilemma. Perfect when craving edge-of-seat tension, complex villains, and moral questions. Great for excited or intense moods, groups who love action and smart storytelling.
+---
+TITLE: Interstellar
+YEAR: 2014
+DIRECTOR: Christopher Nolan
+GENRES: Sci-Fi, Drama, Adventure
+RUNTIME: 2h 49m
+MOOD_TAGS: mind-blowing, emotional, epic, profound, adventurous
+WHY_WATCH: Will make you feel tiny and infinite at the same time.
+DESCRIPTION: A former pilot travels through a wormhole in search of a new home for humanity, confronting the limits of space, time, and love. A breathtaking emotional sci-fi epic about sacrifice and connection.
+EMBED_TEXT: Interstellar 2014. Sci-Fi Drama Adventure. Mind-blowing emotional epic profound adventurous space time love wormhole humanity survival father daughter. Perfect for those who want their mind expanded, feel adventurous, want big questions about life and love, or crave something visually breathtaking and emotionally powerful.
+---
+TITLE: Forrest Gump
+YEAR: 1994
+DIRECTOR: Robert Zemeckis
+GENRES: Drama, Romance, Comedy
+RUNTIME: 2h 22m
+MOOD_TAGS: nostalgic, heartwarming, emotional, uplifting, life-affirming
+WHY_WATCH: Life is like a box of chocolates — this film reminds you why that's beautiful.
+DESCRIPTION: A kind-hearted man from Alabama witnesses and participates in defining moments of American history. A warm, funny, and deeply moving story about life's unexpected journey and the power of love.
+EMBED_TEXT: Forrest Gump 1994. Drama Romance Comedy. Nostalgic heartwarming emotional uplifting life-affirming history kindness love friendship funny. Perfect for feeling nostalgic, wanting something heartwarming and funny, needing a reminder that life is beautiful, or groups who want to laugh and cry together.
+---
+TITLE: Inception
+YEAR: 2010
+DIRECTOR: Christopher Nolan
+GENRES: Sci-Fi, Action, Thriller
+RUNTIME: 2h 28m
+MOOD_TAGS: mind-bending, thrilling, complex, intense, imaginative
+WHY_WATCH: You will not stop thinking about it for days.
+DESCRIPTION: A thief who steals corporate secrets through dream-sharing technology is given the inverse task of planting an idea. A layered puzzle-box thriller that rewards every rewatch.
+EMBED_TEXT: Inception 2010. Sci-Fi Action Thriller. Mind-bending thrilling complex intense imaginative dreams heist puzzle layers reality subconscious. Perfect when you want your mind blown, love complex stories, are in a curious or excited mood, or want a group movie that sparks conversation.
+---
+TITLE: The Matrix
+YEAR: 1999
+DIRECTOR: The Wachowskis
+GENRES: Sci-Fi, Action
+RUNTIME: 2h 16m
+MOOD_TAGS: mind-bending, thrilling, cool, action-packed, philosophical
+WHY_WATCH: The coolest film ever made.
+DESCRIPTION: A programmer discovers reality is a simulation and joins a rebellion against the machines that created it. A revolutionary sci-fi action film that changed cinema forever with groundbreaking style.
+EMBED_TEXT: The Matrix 1999. Sci-Fi Action. Mind-bending thrilling cool action-packed philosophical reality simulation rebellion chosen one kung fu. Perfect for an action-packed night, wanting something philosophical and cool, groups who love classic sci-fi, or anyone who wants to see the world differently.
+---
+TITLE: Good Will Hunting
+YEAR: 1997
+DIRECTOR: Gus Van Sant
+GENRES: Drama
+RUNTIME: 2h 6m
+MOOD_TAGS: emotional, inspiring, heartfelt, profound, character-driven
+WHY_WATCH: Will make you want to call someone you love.
+DESCRIPTION: A mathematical genius working as a janitor at MIT resists his own potential until a therapist helps him confront his past. A raw, beautiful film about self-worth and human connection.
+EMBED_TEXT: Good Will Hunting 1997. Drama. Emotional inspiring heartfelt profound character-driven genius self-worth trauma healing friendship therapy love. Perfect for an emotional night, needing inspiration, feeling introspective, wanting a character-driven story, or a quiet solo viewing that touches the heart deeply.
+---
+TITLE: La La Land
+YEAR: 2016
+DIRECTOR: Damien Chazelle
+GENRES: Romance, Musical, Drama
+RUNTIME: 2h 8m
+MOOD_TAGS: dreamy, romantic, bittersweet, nostalgic, beautiful
+WHY_WATCH: The most beautiful heartbreak you will ever experience.
+DESCRIPTION: A jazz musician and an aspiring actress fall in love in Los Angeles while chasing their dreams. A gorgeous, bittersweet musical about love, ambition, and the roads not taken.
+EMBED_TEXT: La La Land 2016. Romance Musical Drama. Dreamy romantic bittersweet nostalgic beautiful jazz love dreams ambition Los Angeles singing dancing. Perfect for a romantic mood, date night, wanting something visually stunning and musical, feeling nostalgic or dreamy, or when you want to cry beautifully over love.
+---
+TITLE: Parasite
+YEAR: 2019
+DIRECTOR: Bong Joon-ho
+GENRES: Thriller, Drama, Dark Comedy
+RUNTIME: 2h 12m
+MOOD_TAGS: thrilling, dark, suspenseful, shocking, clever
+WHY_WATCH: You will genuinely not see any of it coming.
+DESCRIPTION: A poor family schemes their way into working for a wealthy household with devastating consequences. A genre-defying masterpiece about class, greed, and desperation.
+EMBED_TEXT: Parasite 2019. Thriller Drama Dark Comedy. Thrilling dark suspenseful shocking clever class inequality greed social commentary twist Korean film. Perfect when you want to be completely surprised, love clever plotting, are in the mood for something dark and smart, or want a group movie that sparks discussion.
+---
+TITLE: Get Out
+YEAR: 2017
+DIRECTOR: Jordan Peele
+GENRES: Horror, Thriller
+RUNTIME: 1h 44m
+MOOD_TAGS: scary, tense, suspenseful, thought-provoking, shocking
+WHY_WATCH: Scary, smart, and unforgettable.
+DESCRIPTION: A young Black man visiting his white girlfriend's family uncovers something horrifying. A masterful horror film that doubles as sharp social commentary. Deeply unsettling and brilliantly crafted.
+EMBED_TEXT: Get Out 2017. Horror Thriller. Scary tense suspenseful thought-provoking shocking social commentary racism horror terror dread psychological. Perfect for a scary night, wanting something that makes you jump and think, craving psychological horror with substance, or a group horror experience.
+---
+TITLE: Amélie
+YEAR: 2001
+DIRECTOR: Jean-Pierre Jeunet
+GENRES: Romance, Comedy, Fantasy
+RUNTIME: 2h 2m
+MOOD_TAGS: whimsical, feel-good, romantic, quirky, charming
+WHY_WATCH: Makes Paris look even more magical and life feel worth living.
+DESCRIPTION: A shy Parisian waitress devotes herself to improving others' lives through whimsical interventions while neglecting her own happiness. Pure cinematic magic with a stunning visual style.
+EMBED_TEXT: Amélie 2001. Romance Comedy Fantasy. Whimsical feel-good romantic quirky charming Paris love kindness imagination fantasy French film. Perfect for a happy or whimsical mood, wanting to feel joy and warmth, a romantic evening, when life feels mundane and you need some magic.
+---
+TITLE: About Time
+YEAR: 2013
+DIRECTOR: Richard Curtis
+GENRES: Romance, Drama, Fantasy
+RUNTIME: 2h 3m
+MOOD_TAGS: heartwarming, life-affirming, romantic, emotional, uplifting
+WHY_WATCH: Will make you want to live every day more fully.
+DESCRIPTION: A man discovers he can travel in time and uses this gift to find love, only to learn the real secret to happiness. The most quietly beautiful film about appreciating life and family.
+EMBED_TEXT: About Time 2013. Romance Drama Fantasy. Heartwarming life-affirming romantic emotional uplifting time travel love family appreciation gratitude. Perfect for wanting to feel good about life, a romantic mood, date night, craving something that makes you appreciate the present.
+---
+TITLE: The Grand Budapest Hotel
+YEAR: 2014
+DIRECTOR: Wes Anderson
+GENRES: Comedy, Adventure, Mystery
+RUNTIME: 1h 39m
+MOOD_TAGS: quirky, fun, stylish, witty, adventurous
+WHY_WATCH: The most stylish film ever made — every frame is a painting.
+DESCRIPTION: A legendary concierge and his protégé become embroiled in a murder mystery across a fictional European republic. Wes Anderson at his most delightful and inventive.
+EMBED_TEXT: The Grand Budapest Hotel 2014. Comedy Adventure Mystery. Quirky fun stylish witty adventurous murder mystery Europe concierge heist colorful Wes Anderson. Perfect when you want something funny and unique, a playful mood, groups who love stylish filmmaking, or a light adventure with sharp wit.
+---
+TITLE: Mad Max: Fury Road
+YEAR: 2015
+DIRECTOR: George Miller
+GENRES: Action, Sci-Fi
+RUNTIME: 2h
+MOOD_TAGS: adrenaline, explosive, intense, epic, exhilarating
+WHY_WATCH: The greatest action film of the 21st century.
+DESCRIPTION: In a post-apocalyptic wasteland, a woman rebel and a drifter team up to flee a tyrannical ruler. Two hours of non-stop, breathtaking action filmmaking and practical effects mastery.
+EMBED_TEXT: Mad Max Fury Road 2015. Action Sci-Fi. Adrenaline explosive intense epic exhilarating post-apocalyptic car chase survival rebellion non-stop action feminist. Perfect for maximum adrenaline, an excited or restless group, wanting pure spectacle and excitement, or groups who love incredible action.
+---
+TITLE: John Wick
+YEAR: 2014
+DIRECTOR: Chad Stahelski
+GENRES: Action, Thriller
+RUNTIME: 1h 41m
+MOOD_TAGS: adrenaline, cool, stylish, intense, action-packed
+WHY_WATCH: The most stylish, satisfying action film in years.
+DESCRIPTION: A retired hitman seeks vengeance after criminals kill his dog and steal his car. Slickly choreographed action with a surprising emotional core and incredible world-building.
+EMBED_TEXT: John Wick 2014. Action Thriller. Adrenaline cool stylish intense action-packed assassin revenge vengeance choreography gun-fu underworld. Perfect for pure action enjoyment, a hyped-up or intense mood, stylish filmmaking with incredible fight sequences, or groups wanting a fun action night.
+---
+TITLE: Spider-Man Into the Spider-Verse
+YEAR: 2018
+DIRECTOR: Peter Ramsey, Rodney Rothman, Bob Persichetti
+GENRES: Animation, Action, Sci-Fi
+RUNTIME: 1h 57m
+MOOD_TAGS: fun, inspiring, exciting, uplifting, energetic
+WHY_WATCH: Will make you feel like anyone can wear the mask.
+DESCRIPTION: A Brooklyn teen discovers he's not the only Spider-Man and must step up to save the multiverse. Visually revolutionary and emotionally powerful — arguably the best superhero film ever made.
+EMBED_TEXT: Spider-Man Into the Spider-Verse 2018. Animation Action Sci-Fi. Fun inspiring exciting uplifting energetic teenager superhero multiverse animation diverse. Perfect for feeling inspired, a high-energy group night, family-friendly but genuinely great, or anyone needing a reminder that anyone can be a hero.
+---
+TITLE: Soul
+YEAR: 2020
+DIRECTOR: Pete Docter
+GENRES: Animation, Drama, Comedy
+RUNTIME: 1h 40m
+MOOD_TAGS: profound, emotional, life-affirming, thoughtful, beautiful
+WHY_WATCH: Will completely change how you think about your life.
+DESCRIPTION: A jazz musician on the cusp of his dream gig gets lost between life and death. Pixar's most philosophical film — a meditation on what makes life worth living and what it means to find your spark.
+EMBED_TEXT: Soul 2020. Animation Drama Comedy. Profound emotional life-affirming thoughtful beautiful jazz music meaning purpose existence what makes life worth living spark. Perfect for a reflective mood, feeling lost or unmotivated, solo quiet night wanting something that makes you think about life's meaning.
+---
+TITLE: Your Name
+YEAR: 2016
+DIRECTOR: Makoto Shinkai
+GENRES: Animation, Romance, Fantasy
+RUNTIME: 1h 52m
+MOOD_TAGS: emotional, romantic, beautiful, bittersweet, dreamy
+WHY_WATCH: The most beautiful love story you have never experienced before.
+DESCRIPTION: Two teenagers from different parts of Japan mysteriously begin swapping bodies and gradually fall in love. Achingly beautiful animation with a story that will break and heal your heart simultaneously.
+EMBED_TEXT: Your Name 2016. Animation Romance Fantasy. Emotional romantic beautiful bittersweet dreamy body-swapping love story Japan anime yearning connection. Perfect for a romantic or dreamy mood, wanting something emotionally beautiful, anime fans and newcomers, or when you want to cry beautiful tears over love.
+---
+TITLE: Eternal Sunshine of the Spotless Mind
+YEAR: 2004
+DIRECTOR: Michel Gondry
+GENRES: Romance, Sci-Fi, Drama
+RUNTIME: 1h 48m
+MOOD_TAGS: melancholic, romantic, thought-provoking, bittersweet, intimate
+WHY_WATCH: The most honest film about love and heartbreak ever made.
+DESCRIPTION: After a painful breakup, a couple undergoes a procedure to erase each other from their memories. A heartbreaking, tender exploration of love, loss, and whether painful memories are worth keeping.
+EMBED_TEXT: Eternal Sunshine of the Spotless Mind 2004. Romance Sci-Fi Drama. Melancholic romantic thought-provoking bittersweet intimate love loss memory heartbreak relationship complicated. Perfect for a melancholic or reflective mood, processing feelings about love or loss, wanting something intimate and emotionally complex.
+---
+TITLE: A Quiet Place
+YEAR: 2018
+DIRECTOR: John Krasinski
+GENRES: Horror, Thriller, Sci-Fi
+RUNTIME: 1h 30m
+MOOD_TAGS: tense, scary, suspenseful, thrilling, intense
+WHY_WATCH: You will hold your breath for 90 minutes.
+DESCRIPTION: A family struggles to survive in a post-apocalyptic world inhabited by blind monsters with an acute sense of hearing. Masterfully tense filmmaking with genuine emotional stakes and heart.
+EMBED_TEXT: A Quiet Place 2018. Horror Thriller Sci-Fi. Tense scary suspenseful thrilling intense silence monsters survival family horror love. Perfect for a scary group night, edge-of-seat tension, survival horror with emotional stakes, or groups who want a film that makes silence terrifying.
+---
+TITLE: The Pursuit of Happyness
+YEAR: 2006
+DIRECTOR: Gabriele Muccino
+GENRES: Drama, Biography
+RUNTIME: 1h 57m
+MOOD_TAGS: inspiring, emotional, uplifting, motivating, hopeful
+WHY_WATCH: Will make you believe anything is possible if you never give up.
+DESCRIPTION: Based on the true story of Chris Gardner, a struggling salesman who takes custody of his son and faces homelessness while pursuing a dream career. A deeply moving story of perseverance and love.
+EMBED_TEXT: The Pursuit of Happyness 2006. Drama Biography. Inspiring emotional uplifting motivating hopeful perseverance poverty single father dream success struggle real story. Perfect when you need motivation, feeling down or hopeless, wanting to be moved by true human determination, or a solo inspiring night.
+---
+TITLE: Superbad
+YEAR: 2007
+DIRECTOR: Greg Mottola
+GENRES: Comedy
+RUNTIME: 1h 53m
+MOOD_TAGS: hilarious, nostalgic, fun, energetic, lighthearted
+WHY_WATCH: You will laugh until it hurts.
+DESCRIPTION: Two inseparable best friends make one last attempt to be cool before going to different colleges. One of the funniest films ever made, with a surprisingly tender heart about friendship and growing up.
+EMBED_TEXT: Superbad 2007. Comedy. Hilarious nostalgic fun energetic lighthearted high school friendship teenagers coming-of-age drinking party laughter. Perfect for pure laughter, a fun group night, when you want to feel nostalgic about youth, or when everyone just needs to laugh and have a good time.
+---
+TITLE: The Intouchables
+YEAR: 2011
+DIRECTOR: Olivier Nakache, Eric Toledano
+GENRES: Drama, Comedy, Biography
+RUNTIME: 1h 52m
+MOOD_TAGS: uplifting, heartwarming, funny, life-affirming, joyful
+WHY_WATCH: Impossible to watch without smiling.
+DESCRIPTION: An unlikely friendship forms between a wealthy quadriplegic and his street-smart caregiver from the projects. One of the most joyful and heartwarming films ever made — impossible to resist.
+EMBED_TEXT: The Intouchables 2011. Drama Comedy Biography. Uplifting heartwarming funny life-affirming joyful friendship disability class difference unlikely bond France. Perfect for a happy group night, wanting something that makes everyone laugh and cry, needing emotional warmth, or an uplifting story about friendship.
+---
+TITLE: Arrival
+YEAR: 2016
+DIRECTOR: Denis Villeneuve
+GENRES: Sci-Fi, Drama, Mystery
+RUNTIME: 1h 56m
+MOOD_TAGS: mind-bending, emotional, profound, quiet, thought-provoking
+WHY_WATCH: The film that will rewire how you think about time.
+DESCRIPTION: A linguist is recruited to communicate with extraterrestrial visitors and discovers something profound about time, language, and love. Quietly devastating and intellectually brilliant sci-fi.
+EMBED_TEXT: Arrival 2016. Sci-Fi Drama Mystery. Mind-bending emotional profound quiet thought-provoking aliens language time love grief acceptance destiny. Perfect for a quiet thoughtful evening, wanting something intellectually and emotionally powerful, slow-burn sci-fi lovers, or a solo night that wants to move and surprise.
+---
+TITLE: Everything Everywhere All at Once
+YEAR: 2022
+DIRECTOR: Daniel Kwan, Daniel Scheinert
+GENRES: Sci-Fi, Comedy, Action, Drama
+RUNTIME: 2h 19m
+MOOD_TAGS: wild, emotional, mind-bending, joyful, chaotic
+WHY_WATCH: Will make you cry over googly eyes and love everything.
+DESCRIPTION: A middle-aged Chinese-American laundromat owner must connect with parallel universe versions of herself to save existence. The most bonkers, heartfelt, and human film in recent memory — a love letter to life itself.
+EMBED_TEXT: Everything Everywhere All at Once 2022. Sci-Fi Comedy Action Drama. Wild emotional mind-bending joyful chaotic multiverse family love motherhood absurd funny tears. Perfect when you want something truly unlike anything else, a group craving laughing and crying together, or anyone who wants a film that celebrates existence.
+---
