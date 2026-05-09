@@ -1,303 +1,158 @@
-# How Pop Choice Was Built — A Complete Guide
+# Building Pop Choice — What I Learned and How It Works
 
-This guide walks through every part of the app in plain language, from the first line of code to how a movie recommendation reaches your screen.
+So I built this app that recommends a movie based on your mood, and honestly it turned out cooler than I expected. This guide is me documenting everything I did so I (or anyone else) can understand it later without starting from scratch.
 
----
-
-## What the App Does
-
-1. You answer questions about your mood and what you want to watch tonight.
-2. Your answers get converted into a list of numbers (an "embedding") that captures their meaning.
-3. Those numbers are compared against pre-computed numbers for 25 movies stored in a database.
-4. The closest matching movie wins.
-5. An AI (Groq) writes a personal explanation of why that movie is perfect for you tonight.
-6. The movie poster is fetched from The Movie Database (TMDB) and shown on screen.
+I'm not going to pretend I knew all of this from the start. A lot of it I had to look up, break, fix, and break again. But that's the point.
 
 ---
 
-## The Tech Stack and Why We Chose Each Tool
+## What the app actually does
 
-| Tool | What it does in this app | Why we chose it |
-|---|---|---|
-| **Node.js + Express** | Runs the backend server | Simple, no-config JavaScript server |
-| **Supabase** | Stores movies + their number-vectors | Free, has built-in vector search via pgvector |
-| **@xenova/transformers** | Converts text into number-vectors (embeddings) | Runs locally, no extra API key needed |
-| **Groq** | Writes the personalized explanation | Extremely fast LLM inference, free tier |
-| **TMDB** | Fetches movie posters | Free API, huge movie database |
-| **Plain HTML/CSS/JS** | The UI | No build step, works everywhere |
+You open it, say how many people are watching, pick your mood, pick what kind of movie you're in the mood for — and it finds you a movie. Not just any movie. It compares what you said against a database of 25 movies using math (embeddings, I'll explain) and then uses an AI to write a little paragraph about why that specific movie is perfect for your night.
+
+It also has a "Try Another" button if you don't like the first pick, which I'm pretty proud of because it reuses the same search results instead of hitting the database again.
 
 ---
 
-## Part 1: Project Setup
+## The tools I used and why
 
-### Step 1 — Create the project folder and install dependencies
+**Node.js + Express** — I used this for the backend because it's JavaScript, which I already know. Express just makes it easier to handle routes (like when the browser sends data to the server).
 
-```
-npm install
-```
+**Supabase** — This is basically a free online database. The cool part is it has a plugin called pgvector that lets you store and search through lists of numbers (embeddings). Without that, this whole app doesn't work.
 
-The `package.json` lists every library the app needs. When you run `npm install`, Node downloads them all into a `node_modules` folder.
+**@xenova/transformers** — This is the library that converts text into embeddings. It runs locally on your computer so you don't need another API key for it. It downloads a small AI model the first time you use it (~30MB) and caches it after that.
 
-**Key dependencies explained:**
-- `express` — the web server framework. Handles incoming requests and sends responses.
-- `@supabase/supabase-js` — the official library for talking to Supabase from JavaScript.
-- `@xenova/transformers` — runs AI models locally. We use it to generate embeddings.
-- `groq-sdk` — the official library for calling Groq's AI API.
-- `dotenv` — loads your secret API keys from the `.env` file into the app.
-- `cors` — allows your browser to make requests to your local server.
+**Groq** — This is the AI that writes the explanation for why a movie fits your mood. It's really fast compared to other AI APIs I've tried. Free tier is generous enough for a project like this.
 
-### Step 2 — Create your `.env` file
+**Plain HTML/CSS/JS** — No React, no Vue, nothing fancy. Just regular files the browser can open. I did this on purpose because I wanted to actually understand what's happening instead of hiding it behind a framework.
 
-Copy `.env.example` to `.env` and fill in your four keys:
+---
+
+## Before you run anything
+
+You need four things:
+
+1. A Supabase account (free) — supabase.com
+2. A Groq API key — console.groq.com
+3. Node.js installed on your machine
+4. A `.env` file with your keys (I'll explain below)
+
+Create a `.env` file in the root folder (copy `.env.example` and fill it in):
 
 ```
 SUPABASE_URL=https://yourproject.supabase.co
-SUPABASE_SERVICE_KEY=eyJ...  (the service_role key, not the anon key)
+SUPABASE_SERVICE_KEY=eyJ...
 GROQ_API_KEY=gsk_...
-TMDB_API_KEY=abc123...
 PORT=3000
 ```
 
-**Why two Supabase keys?**
-- The `anon` key is for public use — it respects Row Level Security (RLS) restrictions.
-- The `service_role` key bypasses RLS — it's for trusted backend code like ours.
-- Never expose the service_role key in the frontend (browser). Keep it server-side only.
+One thing that tripped me up — Supabase gives you two keys: the `anon` key and the `service_role` key. Use the `service_role` one here. The anon key won't have permission to insert movies into the database because of security rules (RLS — more on that later). Don't put either key in your frontend code, ever. Keep them server-side only.
 
 ---
 
-## Part 2: The Movie Database (movies.txt)
+## The movie data lives in movies.txt
 
-### What is "chunking"?
-
-In AI systems that search through text (called RAG — Retrieval Augmented Generation), you split large documents into smaller pieces called **chunks**. Each chunk gets its own embedding. When a user asks a question, their question's embedding is compared against all the chunks to find the best match.
-
-In our app, **each movie is one chunk**. The `movies.txt` file is our document, and splitting it by `---` gives us 25 chunks — one per movie.
-
-### The movies.txt format
+I didn't want to hardcode movies in a JavaScript file because that felt messy and hard to edit. So I made a `movies.txt` file where each movie is its own block separated by `---`.
 
 ```
-TITLE: The Shawshank Redemption
-YEAR: 1994
-DIRECTOR: Frank Darabont
-GENRES: Drama
-RUNTIME: 2h 22m
-MOOD_TAGS: hopeful, inspiring, emotional, uplifting, profound
-WHY_WATCH: The most life-affirming film ever made.
-DESCRIPTION: A wrongfully imprisoned man forges an unbreakable friendship...
-EMBED_TEXT: The Shawshank Redemption 1994. Drama. Hopeful inspiring...
+TITLE: Inception
+YEAR: 2010
+DIRECTOR: Christopher Nolan
+GENRES: Sci-Fi, Action, Thriller
+RUNTIME: 2h 28m
+MOOD_TAGS: mind-bending, thrilling, complex, intense, imaginative
+WHY_WATCH: You will not stop thinking about it for days.
+DESCRIPTION: A thief who steals corporate secrets through dream-sharing...
+EMBED_TEXT: Inception 2010. Sci-Fi Action Thriller. Mind-bending thrilling...
 ---
 ```
 
-**Why is EMBED_TEXT different from DESCRIPTION?**
-DESCRIPTION is what users see on screen — it's written for humans.
-EMBED_TEXT is what gets converted into a number-vector — it's written to be semantically rich, packing in genres, mood words, and what kind of viewer the movie is perfect for. This makes the vector search more accurate.
+Notice there are two description fields. `DESCRIPTION` is what the user sees on screen. `EMBED_TEXT` is what actually gets turned into an embedding — I made it longer and packed with mood words and genres because that's what helps it match better.
 
-### How to add a new movie
+To add a new movie, just copy one of the blocks, fill it in, run `npm run setup` again. That's it.
 
-Just add a new block at the end of `movies.txt` following the same format, then run `npm run setup` again. That's it.
+This pattern of splitting a text file into chunks and embedding each chunk separately is called RAG (Retrieval Augmented Generation). In our case each chunk is one movie, but in bigger apps the chunks might be paragraphs from a long document.
 
 ---
 
-## Part 3: What is an Embedding?
+## What is an embedding and why does it matter
 
-An embedding is a list of numbers that represents the meaning of a piece of text. Similar meanings produce similar lists of numbers.
+This was the hardest concept for me to wrap my head around at first.
 
-For example:
-- "I feel happy and want something funny" → `[0.12, -0.45, 0.78, ...]` (384 numbers)
-- "Superbad 2007. Hilarious fun lighthearted comedy." → `[0.11, -0.43, 0.80, ...]` (384 numbers)
+An embedding is just a long list of numbers that represents the *meaning* of a piece of text. The model I'm using (`all-MiniLM-L6-v2`) turns any text into exactly 384 numbers. Two pieces of text with similar meaning will produce similar lists of numbers. Two completely unrelated things will produce very different lists.
 
-These two vectors are close to each other numerically, so they match. This is how the app knows that a person who wants something funny tonight should watch Superbad.
+So when you say "I'm feeling calm and want something heartwarming," the app converts that into 384 numbers. Then it compares those numbers against the pre-stored 384 numbers for every movie in the database. The movie whose numbers are closest wins.
 
-We use the `all-MiniLM-L6-v2` model — a small but powerful model that produces 384-dimensional vectors. The "384-dimensional" part means each embedding is a list of 384 numbers.
+The code for this is pretty short actually:
 
 ```javascript
-// How embedding generation works in setup-db.js and server.js:
 const { pipeline } = await import('@xenova/transformers');
 const embedder = await pipeline('feature-extraction', 'Xenova/all-MiniLM-L6-v2');
 
-const output = await embedder("some text here", { pooling: 'mean', normalize: true });
-const embedding = Array.from(output.data); // [0.12, -0.45, 0.78, ...]
+const output = await embedder("some text", { pooling: 'mean', normalize: true });
+const embedding = Array.from(output.data); // this is now a list of 384 numbers
 ```
 
-- `pooling: 'mean'` — averages all the word vectors into one vector for the whole sentence.
-- `normalize: true` — scales the vector so its length equals 1. Required for accurate cosine similarity.
+`pooling: 'mean'` averages all the word-level numbers into one list for the whole sentence. `normalize: true` makes sure all the numbers are scaled consistently, which is required for the comparison math to work right.
 
 ---
 
-## Part 4: The Setup Script (scripts/setup-db.js)
+## Setting up the database
 
-Run this once to fill your Supabase database with movies:
+Before anything works, you need to run `schema.sql` in the Supabase SQL Editor. Copy the whole file and paste it in there.
 
-```
+What it does:
+- Turns on the pgvector extension (the thing that makes vector/embedding search possible)
+- Creates the `movies` table with a special `embedding vector(384)` column
+- Creates a function called `match_movies` that does the similarity search
+- Sets up Row Level Security (RLS) so only our server can write to the table
+
+RLS is Supabase's way of saying "who is allowed to do what." We enable it and add one rule: anyone can read movies, but nobody can add or delete them through the public API. Our setup script gets around this because it uses the `service_role` key which bypasses RLS entirely.
+
+Then run the setup script to fill the database:
+
+```bash
 npm run setup
 ```
 
-**What it does, step by step:**
-
-1. **Reads movies.txt** and splits it into 25 chunks using the `---` delimiter.
-2. **Parses each chunk** into a JavaScript object with fields like title, year, genres, etc.
-3. **Clears the existing movies table** in Supabase so re-runs are safe.
-4. **For each movie**, generates a 384-number embedding from its EMBED_TEXT.
-5. **Inserts the movie** (all fields + embedding) into the Supabase `movies` table.
-
-```javascript
-// The parser — splits the txt file into movie objects:
-function parseMoviesTxt() {
-  const content = fs.readFileSync('movies.txt', 'utf-8');
-  const chunks  = content.split(/\n---\n/).filter(c => c.trim());
-
-  return chunks.map(chunk => {
-    const movie = {};
-    for (const line of chunk.trim().split('\n')) {
-      const colonIdx = line.indexOf(': ');
-      const key      = line.substring(0, colonIdx).trim();
-      const value    = line.substring(colonIdx + 2).trim();
-      if (key === 'TITLE')   movie.title  = value;
-      if (key === 'GENRES')  movie.genres = value.split(',').map(s => s.trim());
-      // ... etc
-    }
-    return movie;
-  });
-}
-```
+This reads `movies.txt`, generates an embedding for each movie using the local AI model, and inserts everything into Supabase. First run takes a bit longer because it downloads the model. After that it's cached and fast.
 
 ---
 
-## Part 5: Supabase and Vector Search (schema.sql)
-
-### The movies table
-
-```sql
-create table movies (
-  id          bigserial primary key,
-  title       text,
-  year        integer,
-  director    text,
-  genres      text[],        -- array of strings
-  runtime     text,
-  mood_tags   text[],
-  description text,
-  why_watch   text,
-  embedding   vector(384)    -- 384-dimensional vector
-);
-```
-
-The key column is `embedding vector(384)`. This is a special column type provided by the `pgvector` extension that Supabase enables. It stores the 384-number list for each movie.
-
-### The similarity search function
-
-```sql
-create function match_movies(query_embedding vector(384), match_threshold float, match_count int)
-returns table (title text, similarity float, ...)
-as $$
-  select *, 1 - (embedding <=> query_embedding) as similarity
-  from movies
-  where 1 - (embedding <=> query_embedding) > match_threshold
-  order by similarity desc
-  limit match_count;
-$$;
-```
-
-- `<=>` is the cosine distance operator from pgvector.
-- `1 - distance` converts distance into similarity (1.0 = identical, 0.0 = completely different).
-- `match_threshold: 0.1` means "only return movies that are at least 10% similar."
-- `match_count: 3` means "return the top 3 matches."
-
-### Row Level Security (RLS)
-
-RLS is Supabase's security system. We enable it and add one policy:
-
-```sql
-create policy "Anyone can read movies" on movies for select using (true);
-```
-
-This means anyone can READ movies, but nobody can INSERT/UPDATE/DELETE through the public API. Our setup script uses the `service_role` key which bypasses RLS entirely, so it can insert movies freely.
-
----
-
-## Part 6: The Backend (server.js)
+## How the server works (server.js)
 
 The server has two endpoints.
 
-### POST /api/recommend
+**POST /api/recommend** — the main one. Called when you hit "Find My Movie."
 
-This is the main endpoint. Called when the user hits "Find My Movie."
-
-**Step by step:**
-
-1. Receives `{ groupDescription, persons: [{mood, experience}, ...] }` from the browser.
-2. Builds a combined query string from all the answers:
-   ```javascript
-   // For 1 person:
-   "Mood: Happy and upbeat. Craving: Hilarious and fun laughter comedy."
-
-   // For 3 people:
-   "Group context: Date night. Person 1 — mood: Calm, craving: Heartwarming.
-    Person 2 — mood: Excited, craving: Thrilling."
-   ```
-3. Converts that string into a 384-number embedding.
-4. Calls the Supabase `match_movies` function with that embedding.
-5. Takes the top result and fetches its poster from TMDB **at the same time** as generating the Groq explanation (using `Promise.all` to run them in parallel — faster).
-6. Returns `{ movie, explanation, alternatives }` to the browser.
+Here's the flow:
+1. Gets the answers from the browser (mood, experience, how many people, etc.)
+2. Combines everything into one string — like "Group of 2. Person 1 mood: Happy, craving: Hilarious. Person 2 mood: Calm, craving: Heartwarming."
+3. Converts that string into an embedding (384 numbers)
+4. Sends those numbers to Supabase and asks "which movie is closest to this?"
+5. Takes the top result and sends it to Groq with a prompt asking it to explain why it's perfect
+6. Sends everything back to the browser
 
 ```javascript
-// Running TMDB and Groq in parallel — not one after the other:
-const [poster_url, explanation] = await Promise.all([
-  fetchTmdbPoster(top.title, top.year),
-  getGroqExplanation(top, { groupDescription, persons })
-]);
-```
-
-### POST /api/explain
-
-Called when the user clicks "Try Another Recommendation →". The browser already has the alternative movies from the first API call. It just needs a new Groq explanation for the next movie.
-
-```javascript
-// Server receives the next movie object + original answers
-// and generates a new personalized explanation
-const explanation = await getGroqExplanation(movie, { groupDescription, persons });
-```
-
-This avoids re-running the vector search — we already have our 3 candidates.
-
-### TMDB Poster Fetch
-
-```javascript
-function fetchTmdbPoster(title, year) {
-  // Uses Node's built-in https module — no extra library needed
-  const url = `https://api.themoviedb.org/3/search/movie?api_key=${TMDB_KEY}&query=${title}&year=${year}`;
-  // Returns the CDN URL for the poster image, or null if not found
-  // e.g. "https://image.tmdb.org/t/p/w500/abc123.jpg"
+// building the query string for multiple people
+function buildQueryText({ groupDescription, persons }) {
+  const groupLine = groupDescription ? `Group context: ${groupDescription}.` : '';
+  const personLines = persons.map((p, i) =>
+    persons.length === 1
+      ? `Mood: ${p.mood}. Craving: ${p.experience}.`
+      : `Person ${i + 1} — mood: ${p.mood}, craving: ${p.experience}.`
+  ).join(' ');
+  return `${groupLine} ${personLines}`.trim();
 }
 ```
 
-If `TMDB_API_KEY` is not set or the movie isn't found, it returns `null`. The frontend falls back to a 🎬 emoji in that case.
-
-### The Groq Prompt
-
-```javascript
-{
-  role: 'system',
-  content: 'You are a passionate movie expert who gives warm, personal recommendations in 2-3 sentences.'
-}
-{
-  role: 'user',
-  content: `Context: Person 1: Happy, wants Heartwarming...
-             Why is "Forrest Gump" the PERFECT movie for them tonight?`
-}
-```
-
-- `model: 'llama-3.3-70b-versatile'` — Groq's most capable model.
-- `temperature: 0.8` — slightly creative but not random.
-- `max_tokens: 200` — keeps the explanation short.
+**POST /api/explain** — called when you click "Try Another." The browser already has the top 3 results from the first call. It just needs a new explanation from Groq for the next movie in line. So this endpoint skips the embedding and database search entirely and just calls Groq.
 
 ---
 
-## Part 7: The Frontend
+## How the frontend works
 
-### How screens work (public/index.html + public/app.js)
-
-The app has 5 screens. All exist in the HTML at once, but only one is visible at a time.
+The app has multiple screens (welcome, group description, per-person questions, loading, result, error). They all exist in the HTML at the same time — only one is visible at a time.
 
 ```javascript
 function showScreen(id) {
@@ -306,114 +161,90 @@ function showScreen(id) {
 }
 ```
 
-The CSS transitions handle the fade/slide animation automatically when the `active` class is added or removed.
+The CSS uses `opacity` and `transform` to animate between them. That's the sliding effect.
 
-### The state object
-
-All app data lives in one object:
+All the app's data lives in one `state` object:
 
 ```javascript
 const state = {
-  numPeople:        1,     // how many people are watching
-  groupDescription: '',    // optional context text
-  persons:          [],    // [{mood, experience}, ...] one per person
-  currentPerson:    0,     // which person screen we're showing
-  allMatches:       [],    // all 3 movie results from the API
-  currentMatchIdx:  0,     // which match is currently displayed
-  lastAnswers:      {}     // saved for "Try Another" explanation calls
+  numPeople: 1,
+  groupDescription: '',
+  persons: [],          // one { mood, experience } per person
+  currentPerson: 0,
+  allMatches: [],       // top 3 results from the API
+  currentMatchIdx: 0,   // which one is currently showing
+  lastAnswers: {}       // saved so "Try Another" can reuse them
 };
 ```
 
-### The N-people flow
+For multiple people, I reuse the same HTML screen and just update its content in JavaScript before showing it. So instead of creating N screens dynamically, there's one screen that changes what it says depending on which person is up.
 
-For N people, the app loops through a single reusable `screen-person` screen, updating its content each time:
+---
+
+## The N-people feature
+
+This one was fun to build. The idea is that the per-person question screen is the same screen every time — JavaScript just updates the heading and clears/restores the pill selections.
 
 ```javascript
 function showPersonScreen(index) {
-  // Update the badge ("Person 1", "Person 2", etc.)
-  document.getElementById('person-badge').textContent = `Person ${index + 1}`;
+  document.getElementById('person-badge').textContent =
+    state.numPeople === 1 ? 'Your Picks' : `Person ${index + 1}`;
 
-  // Update the progress bar
-  document.getElementById('person-progress-fill').style.width =
-    `${((index + 1) / state.numPeople) * 100}%`;
-
-  // Clear old pill selections, restore if navigating back
+  // clear old selections
   clearPills('person-mood-grid');
-  if (state.persons[index]) restorePill('person-mood-grid', state.persons[index].mood);
+  clearPills('person-exp-grid');
+
+  // if they hit back, restore their previous answers
+  if (state.persons[index]) {
+    restorePill('person-mood-grid', state.persons[index].mood);
+    restorePill('person-exp-grid', state.persons[index].experience);
+  }
 
   showScreen('screen-person');
 }
 ```
 
-When the user submits their picks, the answer is saved and the next person's screen is shown — or `findMovie()` is called if it was the last person.
-
-### The "Try Another" button
-
-The API returns 3 movies in one call. When the user clicks "Try Another":
-
-1. The next movie from `state.allMatches` is selected (wraps back to first after the last).
-2. The movie info updates immediately on screen.
-3. A separate `/api/explain` request gets a new personalized Groq explanation.
-4. The explanation updates when it arrives.
-
-No new vector search is needed — we already have our 3 candidates from the first call.
+When all N people are done, `findMovie()` fires and combines all their answers into one big query string for the embedding.
 
 ---
 
-## Part 8: Running the Full App
+## The "Try Another" button
+
+The API always returns 3 movie matches. The first one shows up on the result screen. The other two are stored in `state.allMatches`.
+
+When you click "Try Another," it grabs the next movie from that list and calls `/api/explain` to get a fresh Groq explanation for it. No new database search. Just a new explanation.
+
+One thing I liked about building this — the movie info shows up immediately, and the explanation loads a second later. That way it doesn't feel slow even though there's a network request happening.
+
+---
+
+## Running it yourself
 
 ```bash
-# 1. Install dependencies (once)
+# install everything
 npm install
 
-# 2. Run schema.sql in Supabase SQL Editor (once)
-#    — enables pgvector, creates the movies table and match_movies function
+# run schema.sql in Supabase SQL Editor first (one time)
 
-# 3. Seed the database (run again if you edit movies.txt)
+# seed the database
 npm run setup
 
-# 4. Start the server
+# start the server
 npm start
 
-# 5. Open in browser
-# http://localhost:3000
+# open in browser
+http://localhost:3000
 ```
+
+If you add movies to `movies.txt`, just run `npm run setup` again. It wipes the old data and re-seeds everything fresh.
 
 ---
 
-## How to Extend the App
+## Things I'd do differently next time
 
-**Add more movies:** Edit `movies.txt`, add a new block with the same format, run `npm run setup`.
+- Store the movie poster URL in the database instead of fetching it at runtime
+- Add a way to filter by genre before the search
+- Cache the embedding model in memory on startup instead of lazy-loading it on first request (makes the first recommendation slow)
+- Maybe add a ratings or "already seen" feature so it doesn't repeat suggestions
 
-**Change the questions:** Edit the pill buttons in `public/index.html`. Update the `data-value` attributes to match what you want sent to the server. The values get embedded semantically, so descriptive phrases work better than single words.
-
-**Change the AI model:** In `server.js`, change `model: 'llama-3.3-70b-versatile'` to any model available on Groq (e.g., `mixtral-8x7b-32768`).
-
-**Deploy online:** Push to a platform like Railway, Render, or Fly.io. Set your four environment variables there instead of in `.env`. The app needs no database migrations — Supabase is already online.
-
----
-
-## Quick Reference: Data Flow
-
-```
-User answers questions
-        ↓
-app.js builds { groupDescription, persons } and POSTs to /api/recommend
-        ↓
-server.js builds a combined query string from all N people's answers
-        ↓
-@xenova/transformers converts the string → 384 numbers (embedding)
-        ↓
-Supabase pgvector compares against all 25 stored movie embeddings
-→ returns top 3 by cosine similarity
-        ↓
-TMDB API fetches the poster for the #1 match      (in parallel)
-Groq generates a personalized explanation          (in parallel)
-        ↓
-Response sent to browser: { movie, explanation, alternatives }
-        ↓
-app.js renders the result card with poster + explanation
-        ↓
-User clicks "Try Another" → /api/explain with the next movie
-→ new Groq explanation, same movie data, no new vector search
-```
+But for a first version, it works and I'm happy with it.
